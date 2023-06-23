@@ -1,0 +1,8 @@
+#ifndef GNL_H
+#define GNL_H
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 1
+#endif
+
+#endif

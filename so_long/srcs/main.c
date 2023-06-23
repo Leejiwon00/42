@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:37:28 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/19 19:45:20 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:07:47 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,57 +36,77 @@ int	ft_strnstr(const char *haystack, const char *needle, size_t len)
 	return (0);
 }
 
-int	checkmap(char *map_name)
-{
-	int		start;
-	int		fd;
-	char	*map;
-	char	*tmp;
+// void	checkmap(t_map *map)
+// {
+	
+// }
 
-	start = ft_strlen(map_name) - 4;
-	if (!ft_strnstr(map_name + start, ".ber", 4))
-	{
-		write(1, "Invalid extension\n", 18);
-		exit(1);
-	}
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		exit(1);
-	map = "";
-	while (1)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
-		map = ft_strjoin(map, tmp);
-	}
-	printf("%s", map);
-	return (0);
-}
 void ft_putchar(char c){
 	write(1, &c, 1);
 }
-/*int deal_key(){
-	ft_putchar('X');
-	mlx_pixel_put(mlx_ptr,win_ptr)
+
+void	player_move(int keycode, t_map *map)
+{
+	int	w;
+	int	h;
+
+	map->img = mlx_xpm_file_to_image(map->mlx, "./image/P.xpm", &w, &h);
+	if (keycode == W)
+	{
+		mlx_put_image_to_window(map->mlx, map->win, map->backimg,
+			map->player.x * 64, map->player.y * 64);
+		mlx_put_image_to_window(map->mlx, map->win, map->img,
+			(map->player.x - 1) * 64, map->player.y * 64);
+	}
+}
+
+int	key_event(int keycode, t_map *map)
+{
+	printf("AAA");
+	if (keycode == 53)
+	{
+		//free(map->mlx);
+		//free(map->win);
+		mlx_destroy_window(map->mlx, map->win);
+		exit(0);
+	}
+	//ft_putchar('a');
+	else if (keycode == W || keycode == A || keycode == S || keycode == D)
+	{
+		mlx_destroy_window(map->mlx, map->win);
+		exit(0);
+		player_move(keycode, map);
+	}
 	return (0);
-}*/
+}
+
+void	start_game(t_map *map)
+{
+	mlx_key_hook(map->win, key_event, &map);
+	mlx_loop(map->mlx);
+}
+
 int	main(int ac, char **av)
 {
+	t_map	map;
+
 	if (ac == 2)
 	{
-		checkmap(av[1]);
+		read_map(av[1], &map);
+		set_background(&map);
+		make_map(&map);
+		//checkmap(&map);
+		start_game(&map);
 	}
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int width;
-	int height;
+	// void	*mlx_ptr;
+	// void	*win_ptr;
+	// // int		width;
+	// // int		height;
 
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx_test");
-	void *img=mlx_xpm_file_to_image(mlx_ptr, "./images/background.xpm",&width,&height);
-	//mlx_key_hook(win_ptr, deal_key,(void*)0);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 10,10);
-	mlx_loop(mlx_ptr);
+	// mlx_ptr = mlx_init();
+	// win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx_test");
+	// //void *img=mlx_xpm_file_to_image(mlx_ptr, "./images/1.xpm",&width,&height);
+	// //mlx_put_image_to_window(mlx_ptr, win_ptr, img, 100,100);
+	// mlx_loop(mlx_ptr);
 	
 }
