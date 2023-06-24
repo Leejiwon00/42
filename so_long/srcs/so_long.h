@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:07:59 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/23 20:07:48 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:50:30 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
+# define ESC 53
 # define W 13
 # define A 0
 # define S 1
@@ -29,14 +30,17 @@
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	void	*p_img;
 }	t_player;
 
 typedef struct s_map
 {
 	int				col;
 	int				row;
+	int				collectible;
+	int				cnt;
 	char			*line;
 	void			*mlx;
 	void			*win;
@@ -47,8 +51,14 @@ typedef struct s_map
 
 void	read_map(char *map_name, t_map *map);
 void	set_background(t_map *map);
-void	make_map(t_map *map);
+void	make_map(t_map *map, int i, int *w, int *h);
+void	checkmap(t_map *map, int x, int y);
 void	start_game(t_map *map);
+int		key_event(int keycode, t_map *map);
+void	player_move(int keycode, t_map *map);
+void	put_image_when_move(t_map *map, int x, int y);
+
+void	ft_putnbr(int num);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 /* gnl */
