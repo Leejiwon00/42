@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:07:59 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/24 19:50:30 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:25:53 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,38 @@ typedef struct s_map
 {
 	int				col;
 	int				row;
-	int				collectible;
-	int				cnt;
 	char			*line;
-	void			*mlx;
-	void			*win;
 	void			*img;
 	void			*backimg;
-	struct s_player	player;
 }	t_map;
 
-void	read_map(char *map_name, t_map *map);
-void	set_background(t_map *map);
-void	make_map(t_map *map, int i, int *w, int *h);
-void	checkmap(t_map *map, int x, int y);
-void	start_game(t_map *map);
-int		key_event(int keycode, t_map *map);
-void	player_move(int keycode, t_map *map);
-void	put_image_when_move(t_map *map, int x, int y);
+typedef struct s_game
+{
+	int				walk;
+	int				collectible;
+	int				p;
+	int				c;
+	int				e;
+	void			*mlx;
+	void			*win;
+	struct s_map	map;
+	struct s_player	player;
+}	t_game;
+
+void	read_map(char *map_name, t_game *game);
+void	set_background(t_game *game);
+void	make_map(t_game *g, int i, int *w, int *h);
+void	check_map(t_game *game);
+void	check_closed(t_game *game);
+void	check_validpath(t_game *game, int x, int y);
+void	start_game(t_game *game);
+int		key_event(int keycode, t_game *game);
+void	player_move(int keycode, t_game *game);
+void	put_image_when_move(t_game *game, int x, int y);
 
 void	ft_putnbr(int num);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
+void	print_error(char *message);
 
 /* gnl */
 char	*get_next_line(int fd);

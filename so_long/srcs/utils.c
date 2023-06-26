@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:38:55 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/24 18:39:47 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:55:09 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,10 @@ void	ft_putnbr(int num)
 		ft_putnbr(num / 10);
 		ft_putnbr(num % 10);
 	}
+}
+
+void	print_error(char *message)
+{
+	write(1, message, ft_strlen(message));
+	exit(1);
 }
