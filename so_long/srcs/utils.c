@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:38:55 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/26 17:55:09 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:32:34 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ void	ft_putnbr(int num)
 	}
 }
 
-void	print_error(char *message)
+void	print_error(t_game *game, char *message)
 {
+	free(game->map.line);
+	mlx_destroy_image(game->mlx, game->map.img);
+	mlx_destroy_window(game->mlx, game->win);
+	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
 	exit(1);
 }

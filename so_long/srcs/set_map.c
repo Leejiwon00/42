@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:43:29 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/26 20:16:09 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:21:14 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	read_map(char *map_name, t_game *game)
 		if (!tmp)
 			break ;
 		game->map.line = ft_strjoin(game->map.line, tmp);
+		free(tmp);
 		game->map.row++;
 		game->map.col = ft_strlen(tmp);
 	}

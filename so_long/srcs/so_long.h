@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:07:59 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/26 20:25:53 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/27 20:00:44 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	set_background(t_game *game);
 void	make_map(t_game *g, int i, int *w, int *h);
 void	check_map(t_game *game);
 void	check_closed(t_game *game);
-void	check_validpath(t_game *game, int x, int y);
+void	check_validpath(t_game *game, int **visit, int x, int y);
 void	start_game(t_game *game);
 int		key_event(int keycode, t_game *game);
 void	player_move(int keycode, t_game *game);
@@ -70,7 +70,7 @@ void	put_image_when_move(t_game *game, int x, int y);
 
 void	ft_putnbr(int num);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
-void	print_error(char *message);
+void	print_error(t_game *game, char *message);
 
 /* gnl */
 char	*get_next_line(int fd);
