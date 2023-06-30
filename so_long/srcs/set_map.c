@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:43:29 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/27 18:21:14 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:44:47 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	read_map(char *map_name, t_game *game)
 {
 	int		fd;
 	char	*tmp;
+	char	*tmp2;
 
 	if (!ft_strnstr(map_name + ft_strlen(map_name) - 4, ".ber", 4))
 	{
@@ -26,19 +27,18 @@ void	read_map(char *map_name, t_game *game)
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		exit(1);
-	game->map.line = "";
-	game->map.row = 0;
-	game->collectible = 0;
-	game->walk = 1;
 	while (1)
 	{
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
+		tmp2 = game->map.line;
 		game->map.line = ft_strjoin(game->map.line, tmp);
-		free(tmp);
-		game->map.row++;
+		if (*tmp2)
+			free(tmp2);
 		game->map.col = ft_strlen(tmp);
+		game->map.row++;
+		free(tmp);
 	}
 }
 
@@ -60,7 +60,8 @@ void	set_background(t_game *game)
 		x = 0;
 		while (x < game->map.col)
 		{
-			mlx_put_image_to_window(game->mlx, game->win, game->map.backimg, x * 64, y);
+			mlx_put_image_to_window(game->mlx, game->win,
+				game->map.backimg, x * 64, y);
 			x++;
 		}	
 		y += 64;
@@ -75,8 +76,6 @@ void	make_map(t_game *g, int i, int *w, int *h)
 		{
 			g->player.p_img
 				= mlx_xpm_file_to_image(g->mlx, "./image/P.xpm", w, h);
-			g->player.x = i - ((g->map.col + 1) * (i / (g->map.col + 1)));
-			g->player.y = i / (g->map.col + 1);
 			mlx_put_image_to_window(g->mlx, g->win, g->player.p_img,
 				g->player.x * 64, g->player.y * 64);
 		}
@@ -85,7 +84,7 @@ void	make_map(t_game *g, int i, int *w, int *h)
 		else if (g->map.line[i] == 'C')
 		{
 			g->map.img = mlx_xpm_file_to_image(g->mlx, "./image/C.xpm", w, h);
-			g->collectible++;
+			g->c++;
 		}
 		else if (g->map.line[i] == 'E')
 			g->map.img = mlx_xpm_file_to_image(g->mlx, "./image/E.xpm", w, h);
