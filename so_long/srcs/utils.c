@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:38:55 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 16:48:25 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:53:29 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ void	ft_putnbr(int num)
 	}
 }
 
-void	print_error(t_game *game, char *message)
+void	print_error(char *message)
 {
-	free(game->map.line);
 	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
 	exit(1);

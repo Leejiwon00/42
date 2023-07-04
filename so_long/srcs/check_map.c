@@ -6,11 +6,10 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:16:29 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 16:48:45 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:55:11 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "so_long.h"
 
 void	check_map(t_game *game)
@@ -38,6 +37,8 @@ void	check_map(t_game *game)
 	check_closed(game);
 	check_validpath(game, visit, game->player.x, game->player.y);
 	free(visit);
+	// for (int i=0;i<(int)ft_strlen(game->map.line); i++)
+	// 	printf("%d ", visit[i]);
 	if (!game->valid)
 		print_error(game, "The map must have valid path!\n");
 }
@@ -60,6 +61,10 @@ void	check_char(t_game *game)
 			game->c++;
 		else if (game->map.line[i] == 'E')
 			game->e++;
+		if (game->map.line[i] != '0' && game->map.line[i] != '1'
+			&& game->map.line[i] != 'P' && game->map.line[i] != 'C'
+			&& game->map.line[i] != 'E' && game->map.line[i] != '\n')
+			print_error(game, "Invalid character!\n");
 	}
 	if (game->p != 1 || game->c == 0 || game->e != 1)
 		print_error(game, "The map must contain 1 E, at least 1 C, and 1 P!\n");
@@ -100,6 +105,7 @@ int	promising(t_game *game, int *visit, int x, int y)
 			game->c--;
 		else if (game->map.line[loc] == 'E')
 			game->e--;
+		printf("x:%d y:%d loc:%d c:%d\n", x, y, loc, game->c);
 		return (1);
 	}
 	return (0);
@@ -115,10 +121,16 @@ void	check_validpath(t_game *game, int *visit, int x, int y)
 		game->valid = 1;
 		return ;
 	}
-	if (!game->e)
-		return ;
+	// if (!game->e)
+	// {
+	// 	//printf("test %d %d\n", game->c, game->e);
+	// 	game->e = 1;
+	// 	return ;
+	// }
 	while (!visit[loc])
 	{
+		// printf("x:%d y:%d\n", x, y);
+		// printf("c:%d\n", game->c);
 		visit[loc] = 1;
 		if (promising(game, visit, x + 1, y))
 			check_validpath(game, visit, x + 1, y);
