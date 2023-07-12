@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:07:59 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 20:53:58 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:15:49 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -71,7 +72,7 @@ void	put_image_when_move(t_game *game, int x, int y);
 
 void	ft_putnbr(int num);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
-void	print_error(char *message);
+void	print_error(t_game *game, char *message);
 int		exit_event(void);
 
 /* gnl */

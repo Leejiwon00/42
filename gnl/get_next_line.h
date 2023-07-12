@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/12 16:24:41 by jiwonle2         ###   ########.fr       */
+/*   Created: 2022/12/13 15:24:06 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/01/16 19:18:48 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "../libft/libft.h"
-# include <unistd.h>
-# include <fcntl.h>
 # include <stdlib.h>
-# include <sys/wait.h>
-# include <stdio.h>
+# include <unistd.h>
 
-typedef struct s_info
-{
-	int		fd[2];
-	char	**path;
-	char	*infile;
-	char	*outfile;
-	char	**cmd;
-}	t_info;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-void	get_path(char **envp, t_info *info);
+char	*get_next_line(int fd);
+char	*ft_strdup(char *str, int idx);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+int		is_line(char *str);
+char	*read_file(char **save, char *buf, int fd);
+char	*set_line(char **save);
+void	free_ptr(char **ptr, char *init);
 
 #endif

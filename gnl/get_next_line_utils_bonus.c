@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 15:23:46 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/02 15:49:20 by jiwonle2         ###   ########.fr       */
+/*   Created: 2023/01/16 15:24:13 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/01/16 19:18:56 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

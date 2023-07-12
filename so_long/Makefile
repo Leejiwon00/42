@@ -6,7 +6,7 @@
 #    By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/17 14:58:37 by jiwonle2          #+#    #+#              #
-#    Updated: 2023/06/30 16:49:33 by jiwonle2         ###   ########.fr        #
+#    Updated: 2023/07/06 13:24:55 by jiwonle2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ clean :
 fclean : clean
 	rm -rf $(NAME)
 
-re : fclean all
+re :
+	make fclean
+	make all
 
 .PHONY: all bonus clean fclean re

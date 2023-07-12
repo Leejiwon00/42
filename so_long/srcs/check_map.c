@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 20:16:29 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/04 18:55:11 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:41:11 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	check_map(t_game *game)
 	check_closed(game);
 	check_validpath(game, visit, game->player.x, game->player.y);
 	free(visit);
-	// for (int i=0;i<(int)ft_strlen(game->map.line); i++)
-	// 	printf("%d ", visit[i]);
 	if (!game->valid)
 		print_error(game, "The map must have valid path!\n");
 }
@@ -105,7 +103,6 @@ int	promising(t_game *game, int *visit, int x, int y)
 			game->c--;
 		else if (game->map.line[loc] == 'E')
 			game->e--;
-		printf("x:%d y:%d loc:%d c:%d\n", x, y, loc, game->c);
 		return (1);
 	}
 	return (0);
@@ -121,16 +118,13 @@ void	check_validpath(t_game *game, int *visit, int x, int y)
 		game->valid = 1;
 		return ;
 	}
-	// if (!game->e)
-	// {
-	// 	//printf("test %d %d\n", game->c, game->e);
-	// 	game->e = 1;
-	// 	return ;
-	// }
-	while (!visit[loc])
+	if (!game->e)
 	{
-		// printf("x:%d y:%d\n", x, y);
-		// printf("c:%d\n", game->c);
+		game->e = 1;
+		return ;
+	}
+	if (!visit[loc])
+	{
 		visit[loc] = 1;
 		if (promising(game, visit, x + 1, y))
 			check_validpath(game, visit, x + 1, y);

@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:43:29 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 20:54:37 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:41:18 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	read_map(char *map_name, t_game *game)
 	char	*tmp2;
 
 	if (!ft_strnstr(map_name + ft_strlen(map_name) - 4, ".ber", 4))
-		print_error("Invalid extension\n");
+		print_error(game, "Invalid extension\n");
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		exit(1);

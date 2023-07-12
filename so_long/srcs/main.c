@@ -6,11 +6,10 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:37:28 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 16:44:39 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:20:03 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "so_long.h"
 
 int	main(int ac, char **av)

@@ -6,11 +6,11 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:23:25 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/02 15:49:22 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:18:53 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "get_next_line.h"
 
 int	is_line(char *str)
 {

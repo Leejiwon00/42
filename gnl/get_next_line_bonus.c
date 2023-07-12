@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 15:23:25 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/02 15:49:22 by jiwonle2         ###   ########.fr       */
+/*   Created: 2023/01/16 14:55:12 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/01/16 19:19:02 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "get_next_line_bonus.h"
 
 int	is_line(char *str)
 {
@@ -84,23 +84,23 @@ char	*read_file(char **save, char *buf, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*save;
+	static char	*save[OPEN_MAX];
 	char		*buf;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 	{
-		free_ptr(&save, NULL);
+		free_ptr(&save[fd], NULL);
 		return (NULL);
 	}
-	line = read_file(&save, buf, fd);
+	line = read_file(&save[fd], buf, fd);
 	free_ptr(&buf, NULL);
 	if (!line)
 	{
-		free_ptr(&save, NULL);
+		free_ptr(&save[fd], NULL);
 		return (NULL);
 	}
 	return (line);

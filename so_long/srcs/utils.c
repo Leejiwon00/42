@@ -6,11 +6,10 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 18:38:55 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/06/30 20:53:29 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:41:37 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "so_long.h"
 
 int	ft_strnstr(const char *haystack, const char *needle, size_t len)
@@ -52,8 +51,10 @@ void	ft_putnbr(int num)
 	}
 }
 
-void	print_error(char *message)
+void	print_error(t_game *game, char *message)
 {
+	if (*game->map.line)
+		free(game->map.line);
 	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
 	exit(1);

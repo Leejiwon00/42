@@ -1,5 +1,9 @@
 {
 	"files.associations": {
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"fcntl.h": "c",
+		"libft.h": "c",
+		"stdio.h": "c",
+		"__mutex_base": "c"
 	}
 }
