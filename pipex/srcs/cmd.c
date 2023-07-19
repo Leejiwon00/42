@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/19 17:55:31 by jiwonle2         ###   ########.fr       */
+/*   Created: 2023/07/19 18:57:39 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/07/19 18:58:51 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "../libft/libft.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <stdio.h>
-
-typedef struct s_info
+void	execute_cmd(t_info *info)
 {
-	int		infile_fd;
-	int		outfile_fd;
-	char	**path;
-	char	**cmd_path;
-	char	*infile;
-	char	*outfile;
-	char	***args;
-}	t_info;
+	int	fd[2];
 
-void	get_path(char **envp, t_info *info);
-char	**get_cmdpath(t_info *info, char *cmd);
-#endif
+	pipe(fd);
+}

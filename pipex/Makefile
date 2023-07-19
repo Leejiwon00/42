@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    MAKEFILE                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 12:58:09 by jiwonle2          #+#    #+#              #
-#    Updated: 2023/07/12 15:39:42 by jiwonle2         ###   ########.fr        #
+#    Updated: 2023/07/19 18:58:02 by jiwonle2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc #-g -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 NAME = pipex
 
-SRCS = srcs/main.c srcs/path.c
+SRCS = srcs/main.c srcs/path.c srcs/cmd.c
 
 OBJS = $(SRCS:.c=.o)
 
