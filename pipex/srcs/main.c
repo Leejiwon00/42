@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/19 18:13:05 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:03:33 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ int	main(int ac, char **av, char **envp)
 	//atexit(leak);
 	if (ac == 5)
 	{
+		printf("ddd");
 		info.infile_fd = open(av[1], O_RDONLY);
 		if (info.infile_fd < 0)
 			print_error(av[1]);
-		get_path(envp, &info);
-	}
+		info.outfile_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		info.cmd1 = av[2];
+		info.cmd2 = av[3];
+	 	get_path(envp, &info);
+		execute_cmd(&info);
+	 }
 }

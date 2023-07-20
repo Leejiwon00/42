@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/19 17:55:31 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:46:04 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ typedef struct s_info
 	int		infile_fd;
 	int		outfile_fd;
 	char	**path;
-	char	**cmd_path;
 	char	*infile;
 	char	*outfile;
-	char	***args;
+	char	*cmd1;
+	char	*cmd2;
 }	t_info;
 
 void	get_path(char **envp, t_info *info);
 char	**get_cmdpath(t_info *info, char *cmd);
+void	execute_cmd(t_info *info);
 #endif
