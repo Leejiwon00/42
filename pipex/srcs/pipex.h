@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/21 17:04:06 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/21 18:36:25 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ char	**get_cmdpath(t_info *info, char *cmd);
 void	execute_cmd(t_info *info, int i, int fd[2]);
 void	make_process(t_info *info);
 void	print_error(char *name, char *message);
+void	free_arr(char **arr);
 #endif

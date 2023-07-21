@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:41:40 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/21 17:51:15 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:10:15 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	get_path(char **envp, t_info *info)
 {
 	int		i;
 	char	*all_path;
+	char	**tmp;
 
 	i = -1;
 	all_path = "";
@@ -28,6 +29,11 @@ void	get_path(char **envp, t_info *info)
 		}	
 	}
 	info->path = ft_split(all_path, ':');
+	tmp = info->path;
+	i = -1;
+	while (tmp[++i])
+		free(tmp[i]);
+	//free(tmp);
 	i = -1;
 	while (info->path[++i])
 		info->path[i] = ft_strjoin(info->path[i], "/");

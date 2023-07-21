@@ -6,11 +6,11 @@
 #    By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 12:58:09 by jiwonle2          #+#    #+#              #
-#    Updated: 2023/07/21 17:54:19 by jiwonle2         ###   ########.fr        #
+#    Updated: 2023/07/21 18:09:35 by jiwonle2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc #-g -fsanitize=address
+CC = cc -g #-fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 NAME = pipex
 

@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/21 17:54:11 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:03:31 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,20 @@ void	free_arr(char **arr)
 int	main(int ac, char **av, char **envp)
 {
 	t_info	info;
-
-	atexit(leak);
+atexit(leak);
+	if (ac == 1)
+	{
+		char **test = ft_split("I am jiwon", ' ');
+		char **tmp = test;
+		int i = -1;
+		while (test[++i])
+			printf("%s\n", test[i]);
+		i = -1;
+		while (tmp[++i])
+			free(tmp[i]);
+		free(tmp);
+	}
+	
 	if (ac == 5)
 	{
 		info.infile_fd = open(av[1], O_RDONLY);
