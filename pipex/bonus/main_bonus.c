@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/22 18:00:50 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:54:20 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	print_error(char *name, char *message)
 {
@@ -36,14 +36,14 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac == 5)
 	{
-		info.outfile_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		info.outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (info.outfile_fd < 0)
-			print_error(av[4], ": No such file or directory\n");
+			print_error(av[ac - 1], ": No such file or directory\n");
 		info.infile_fd = open(av[1], O_RDONLY);
 		if (info.infile_fd < 0)
 			print_error(av[1], ": No such file or directory\n");
-		info.cmd1 = av[2];
-		info.cmd2 = av[3];
+		info.cmd = malloc(sizeof(char *) * (ac - 2));
+		info.cmd_cnt = ac - 3;
 		info.envp = envp;
 		get_path(envp, &info, -1);
 		make_process(&info);
