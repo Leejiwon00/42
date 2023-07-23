@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:49:55 by jiwonle2          #+#    #+#             */
-/*   Updated: 2022/12/08 15:59:27 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:03:43 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,14 @@ static	char	**go_split1(char const *str, char **arr, char c, int *cnt)
 	return (arr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, int *size)
 {
 	char	**arr;
-	int		size;
 	int		cnt;
 
 	cnt = 0;
-	size = ft_getlen(s, c);
-	arr = ft_calloc(size + 1, sizeof(char *));
+	*size = ft_getlen(s, c);
+	arr = ft_calloc(*size + 1, sizeof(char *));
 	if (!arr)
 		return (0);
 	arr = go_split1(s, arr, c, &cnt);

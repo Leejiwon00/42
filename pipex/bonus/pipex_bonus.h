@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/22 18:46:28 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/23 17:27:59 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 typedef struct s_info
 {
 	int		infile_fd;
 	int		outfile_fd;
 	int		cmd_cnt;
-	int		fd[2];
+	int		**fd;
 	char	**path;
 	char	**cmd;
 	char	**envp;
@@ -32,8 +33,10 @@ typedef struct s_info
 
 void	get_path(char **envp, t_info *info, int i);
 char	**get_cmdpath(t_info *info, char *cmd);
-void	execute_cmd(t_info *info, int i);
-void	make_process(t_info *info);
+void	execute_cmd(t_info *info, int idx);
+void	make_process(t_info *info, int i);
 void	print_error(char *name, char *message);
 void	free_arr(char **arr);
+void	init_cmd(t_info *info, int ac, char **av);
+void	make_pipe(t_info *info);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:57:39 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/22 18:02:11 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:02:44 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	execute_cmd(t_info *info, int i, int fd[2])
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		dup2(info->outfile_fd, STDOUT_FILENO);
-		close(info->outfile_fd);
 		execve(arg[0], arg, info->envp);
 	}
 }
