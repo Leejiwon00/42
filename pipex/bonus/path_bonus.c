@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:41:40 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/23 18:24:25 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:32:57 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	get_path(char **envp, t_info *info, int i)
 {
-	int		size;
 	char	*all_path;
 	char	**tmp_path;
 	char	**tmp;
@@ -28,7 +27,7 @@ void	get_path(char **envp, t_info *info, int i)
 			break ;
 		}	
 	}
-	tmp_path = ft_split(all_path, ':', &size);
+	tmp_path = ft_split(all_path, ':');
 	tmp = tmp_path;
 	i = 0;
 	while (tmp_path[i])
@@ -45,19 +44,17 @@ void	get_path(char **envp, t_info *info, int i)
 char	**get_cmdpath(t_info *info, char *cmd)
 {
 	int		i;
-	int		size;
 	char	*tmp;
 	char	**args;
 
 	i = -1;
-	args = ft_split(cmd, ' ', &size);
+	args = ft_split(cmd, ' ');
 	while (info->path[++i])
 	{
 		tmp = ft_strjoin(info->path[i], args[0]);
 		if (!access(tmp, F_OK))
 		{
 			args[0] = tmp;
-			//args[size] = NULL;
 			free(tmp);
 			return (args);
 		}

@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/23 17:24:41 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:54:28 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	print_error(char *name, char *message)
 	write(2, name, ft_strlen(name));
 	write(2, message, ft_strlen(message));
 	exit(1);
+}
+
+void	close_fds(t_info *info)
+{
+	int	i;
+
+	i = -1;
+	while (++i < info->cmd_cnt - 1)
+	{
+		close(info->fd[i][0]);
+		close(info->fd[i][1]);
+	}
 }
 
 void	free_arr(char **arr)
