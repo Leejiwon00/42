@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 18:57:39 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/26 19:05:07 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:27:09 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ void	make_process(t_info *info, int i)
 	i = -1;
 	while (++i < info->cmd_cnt)
 		wait(NULL);
+	i = -1;
+	while (++i < info->cmd_cnt - 1)
+		free(info->fd[i]);
+	free(info->fd);
 }
 
 void	execute_cmd(t_info *info, int idx)

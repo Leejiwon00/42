@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:41:40 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/26 17:32:57 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:20:09 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_path(char **envp, t_info *info, int i)
 		{
 			all_path = envp[i] + 5;
 			break ;
-		}	
+		}
 	}
 	tmp_path = ft_split(all_path, ':');
 	tmp = tmp_path;

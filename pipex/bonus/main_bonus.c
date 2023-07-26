@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/26 18:54:28 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:27:22 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,15 @@ void	init_cmd(t_info *info, int ac, char **av)
 	}
 }
 
+// void leak()
+// {
+// 	system("leaks pipex");
+// }
+
 int	main(int ac, char **av, char **envp)
 {
 	t_info	info;
-
+	//atexit(leak);
 	if (ac >= 5)
 	{
 		info.outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -76,6 +81,7 @@ int	main(int ac, char **av, char **envp)
 		make_pipe(&info);
 		make_process(&info, -1);
 		free_arr(info.path);
+		free_arr(info.cmd);
 		close(info.infile_fd);
 		close(info.outfile_fd);
 	}
