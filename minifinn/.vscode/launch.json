@@ -1,0 +1,13 @@
+{
+	"configurations": [
+	  {
+		"type": "lldb",
+		"request": "launch",
+		"name": "Debug in Terminal",
+		"program": "${workspaceFolder}/minishell",
+		"args": [],
+		"cwd": "${workspaceFolder}",
+		"preLaunchTask": "build"
+	  },
+	]
+  }
