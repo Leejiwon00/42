@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:33:52 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/03/30 14:01:13 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:56:53 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ long long	ft_atoll(char *str)
 {
 	int			sign;
 	int			i;
-	int			result;
+	long long	result;
 
 	i = 0;
 	sign = 1;

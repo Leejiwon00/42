@@ -1,117 +1,128 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_analyzer.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:47:54 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/14 19:53:36 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int quotes_token_mal(t_token **tokens, char *str, int *i, size_t *len)
+#include "minishell.h"
+
+void	store_token(t_token **tokens, size_t *len, char *seg)
 {
-	t_token	*token;
-	char	quote;
-	const char delimiter[7] = "|<> \n\t\0";
-	
-	quote = str[*i];
-	(*len)++;
-	(*i)++;
-	while (str[*i] != quote && str[*i] != '\0')
+	const char	special_chars[7] = "<>| \t\n\0";
+	t_token		*token;
+	char		*token_value;
+	t_quotes	quote;
+
+	if (seg && *len)
+	{
+		quote = NO_QUOTE;
+		token_value = (char *)malloc(sizeof(char) * (*len + 1));
+		ft_strlcpy(token_value, seg, *len + 1);
+		if (token_value[0] == '\'')
+			quote = SINGLE;
+		else if (token_value[0] == '\"')
+			quote = DOUBLE;
+		if (ft_strchr(special_chars, token_value[0]))
+			token = token_new(token_value, NEED_DECIDE, quote);
+		else
+			token = token_new(token_value, NO_TAG, quote);
+		token_add_back(tokens, token);
+		*len = 0;
+	}
+}
+
+static char	*parse_single_quotes(char *input, int *index, size_t *len)
+{
+	const char	special_chars[7] = "<>| \t\n\0";
+
+	if (input[*index] == '\'')
 	{
 		(*len)++;
-		(*i)++;
-	}
-	(*len)++;
-	(*i)++;
-	// if (ft_strchr(delimiter, str[*i]) || !str[*i])
-	if (*len)
-	{
-		token = token_new(str, *i, *len, NO_TAG, quote);
-		if (!token)
-			return (1);
-		token_add_back(tokens, token);
-		(*len) = 0;
+		(*index)++;
+		while (input[*index] && input[*index] != '\'')
+		{
+			(*len)++;
+			(*index)++;
+		}
+		(*len)++;
+		(*index)++;
+		if (!input[*index] || ft_strchr(special_chars, input[*index]))
+			return (input + *index - *len);
 	}
 	return (0);
 }
 
-int delimiter_token_mal(t_token **tokens, char *str, int *i, size_t *len)
+static char	*parse_double_quotes(char *input, int *index, size_t *len)
 {
-	t_token	*token;
-	tags	tag;
-	const char delimiter[7] = "|<> \n\t\0";
-	const char tags[4] = "|<>\0";
-	
-	tag = NO_TAG;
-	while (ft_strchr(delimiter, str[*i]) && str[*i])
+	const char	special_chars[7] = "<>| \t\n\0";
+
+	if (input[*index] == '\"')
 	{
-		if (ft_strchr(tags, str[*i]))
-			tag = NEED_DECIDE;
-		(*i)++;
 		(*len)++;
-	}
-	if (*len)
-	{
-		token = token_new(str, *i, *len, tag, NO_QUOTE);
-		if (!token)
-			return (1);
-		token_add_back(tokens, token);
-		(*len) = 0;
+		(*index)++;
+		while (input[*index] && input[*index] != '\"')
+		{
+			(*len)++;
+			(*index)++;
+		}
+		(*len)++;
+		(*index)++;
+		if (!input[*index] || ft_strchr(special_chars, input[*index]))
+			return (input + *index - *len);
 	}
 	return (0);
 }
 
-int token_mal(t_token **tokens, char *str, int *i, size_t *len)
+static char	*parse_word_or_operator(char *input, int *index, size_t *len)
 {
-	t_token	*token;
-	const char delimiter[7] = "|<> \n\t\0";
-	const char quotes[3] = "\'\"\0";
+	const char	special_chars[7] = "<>| \t\n\0";
 
-	while (!ft_strchr(delimiter, str[*i]) && !ft_strchr(quotes, str[*i]) && \
-	 str[*i])
+	if (ft_strchr(special_chars, input[*index]) && input[*index])
 	{
-		(*i)++;
-		(*len)++;
+		while (ft_strchr(special_chars, input[*index]) && input[*index])
+		{
+			(*len)++;
+			(*index)++;
+		}
+		return (input + *index - *len);
 	}
-	if (*len)
+	else if (input[*index] && input[*index] != '\'' && input[*index] != '\"')
 	{
-		token = token_new(str, *i, *len, NO_TAG, NO_QUOTE);
-		if (!token)
-			return (1);
-		token_add_back(tokens, token);
-		(*len) = 0;
+		while (!ft_strchr(special_chars, input[*index]) && input[*index] && \
+			input[*index] != '\'' && input[*index] != '\"')
+		{
+			(*len)++;
+			(*index)++;
+		}
+		if (!input[*index] || (input[*index] != '\'' && input[*index] != '\"'))
+			return (input + *index - *len);
 	}
 	return (0);
 }
 
-t_token	*token_last(t_token *lst)
+int	lexical_analyzer(t_token **tokens, char *input, t_env **env_lst)
 {
-	t_token	*temp_lst;
+	int		pos;
+	size_t	len;
+	char	*segment_start;
 
-	temp_lst = lst;
-	if (temp_lst)
-	{
-		while (temp_lst->next != 0)
-			temp_lst = temp_lst->next;
-	}
-	return (temp_lst);
-}
-
-int lexical_analyzer(t_token **tokens, char *str, t_env **env_lst)
-{
-	int	i;
-	const char delimiter[7] = "|<> \n\t\0";
-	const char quotes[3] = "\'\"\0";
-	size_t len;
-
-	*tokens = 0;
-	i = 0;
+	pos = 0;
 	len = 0;
-	while (str[i] != 0)
+	while (input[pos])
 	{
-		// FIXME: echo'h'
-		if (ft_strchr(quotes, str[i]) && quotes_token_mal(tokens, str, &i, &len))
-			return (1);
-		if (ft_strchr(delimiter, str[i]) && delimiter_token_mal(tokens, str, &i, &len))
-			return (1);
-		if (!ft_strchr(delimiter, str[i]) && !ft_strchr(quotes, str[i]) && \
-		token_mal(tokens, str, &i, &len))
-			return (1);
+		segment_start = parse_single_quotes(input, &pos, &len);
+		store_token(tokens, &len, segment_start);
+		segment_start = parse_double_quotes(input, &pos, &len);
+		store_token(tokens, &len, segment_start);
+		segment_start = parse_word_or_operator(input, &pos, &len);
+		store_token(tokens, &len, segment_start);
 	}
-	if (update_tokens(tokens, env_lst))
-		return (1);
+	update_tokens(tokens, env_lst);
 	return (0);
 }

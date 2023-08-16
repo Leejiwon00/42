@@ -4,6 +4,7 @@
 		"fcntl.h": "c",
 		"libft.h": "c",
 		"stdio.h": "c",
-		"__mutex_base": "c"
+		"__mutex_base": "c",
+		"locale": "c"
 	}
 }

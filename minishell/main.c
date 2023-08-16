@@ -1,31 +1,54 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/14 20:21:11 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	g_exit_status;
+#include "minishell.h"
+
+unsigned int	g_exit_status;
+
+int	readline_to_input(char **input)
+{
+	*input = readline("minishell $ ");
+	if (!(*input))
+		return (null_input_exit());
+	return (0);
+}
 
 int	loop_prompt(t_env **env_lst)
 {
 	char	*input;
 	t_cmd	*cmds;
+	t_info	*info;
+	int		error;
 
+	info = 0;
 	while (1)
 	{
-		input = readline("minishell $ ");
-		if (!input)
-			return (null_input_exit());
-		if (*input != '\0')
-		{
-			add_history(input);
-			cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-			if (!cmds)
-				return (1);
-			if (parsing(input, &cmds, env_lst))
-				continue ;
-		}
-		if (execute(cmds, env_lst))
+		update_exit_status(env_lst, g_exit_status);
+		if (readline_to_input(&input))
 			return (1);
-		free(input);
+		error = parsing(input, &cmds, env_lst, &info);
+		if (error)
+		{
+			info_cmds_input_clear(cmds, info, input);
+			if (error == 4)
+				break ;
+			continue ;
+		}
+		g_exit_status = execute(cmds, env_lst, info);
+		if (is_exit_status(env_lst, &g_exit_status))
+			return (info_cmds_input_clear(cmds, info, input));
+		info_cmds_input_clear(cmds, info, input);
 	}
-	return (0);
+	return (info_cmds_input_clear(cmds, info, input));
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -43,11 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		env_lstclear(&env_lst, &free);
 		return (1);
 	}
-	if (loop_prompt(&env_lst))
-	{
-		env_lstclear(&env_lst, &free);
-		return (g_exit_status % 255);
-	}
+	loop_prompt(&env_lst);
 	env_lstclear(&env_lst, &free);
-	return (g_exit_status % 255);
+	return (g_exit_status % 256);
 }

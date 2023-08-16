@@ -1,4 +1,16 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_token_util.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:53:21 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 void	token_delone(t_token *lst, void (*del)(void *))
 {
@@ -40,27 +52,17 @@ void	token_add_back(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*token_new(char *str, int i, size_t len, tags tag, char quote)
+t_token	*token_new(char *value, t_tags tag, t_quotes quote)
 {
-	t_token	*new_lst;
-	size_t	start;
+	t_token	*token;
 
-	new_lst = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (new_lst == 0)
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (!token)
 		return (0);
-	if (i < len)
-		start = 0;
-	else
-		start = i - len;
-	new_lst->value = ft_substr(str, start, len);
-	new_lst->tag = tag;
-	if (quote == '\'')
-		new_lst->quote = SINGLE;
-	else if (quote == '\"')
-		new_lst->quote = DOUBLE;
-	else
-		new_lst->quote = NO_QUOTE;
-	new_lst->quote_lo = (char *)ft_calloc(ft_strlen(new_lst->value), sizeof(char));
-	new_lst->next = 0;
-	return (new_lst);
+	token->value = value;
+	token->tag = tag;
+	token->quote = quote;
+	token->quote_lo = (char *)ft_calloc(ft_strlen(token->value), sizeof(char));
+	ft_memset(token->quote_lo, '2', ft_strlen(token->value));
+	return (token);
 }

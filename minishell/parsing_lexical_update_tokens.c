@@ -1,8 +1,20 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_update_tokens.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:50:45 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/14 20:09:33 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 void	value_trim(t_token *token)
 {
-	char *new_value;
+	char	*new_value;
 
 	while (token)
 	{
@@ -13,21 +25,12 @@ void	value_trim(t_token *token)
 	}
 }
 
-int	update_tags(t_token **tokens)
-{
-	if (divide_delimiters(tokens))
-		return (1);
-	if (assign_tags(tokens))
-		return (1);
-	return (0);
-}
-
 void	unnecessary_token_delete(t_token **tokens)
 {
-	t_token *token;
-	t_token *tmp;
-	t_token *prev;
-	
+	t_token	*token;
+	t_token	*tmp;
+	t_token	*prev;
+
 	token = *tokens;
 	prev = 0;
 	while (token)
@@ -50,17 +53,17 @@ void	unnecessary_token_delete(t_token **tokens)
 int	update_tokens(t_token **tokens, t_env **env_lst)
 {
 	value_trim(*tokens);
-	if (update_tags(tokens))
+	if (assign_tags(tokens))
 		return (1);
 	unnecessary_token_delete(tokens);
-	if (!is_valid_quote_token(*tokens))
+	if (!is_valid_quote_token(tokens))
 	{
 		token_clear(tokens, &free);
 		print_error(0, "not matched quotes");
-		return (1);
+		return (update_exit_status(env_lst, 1));
 	}
-	insert_quotes_location(*tokens);
 	replace_env(*tokens, *env_lst);
+	insert_quotes_location(*tokens);
 	remove_quotes(*tokens);
 	return (0);
 }

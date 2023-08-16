@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:31:52 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/31 16:16:34 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:21:35 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // 	return arg;
 // }
 
-void	init(t_info *info, char **av)
+void	init_info(t_info *info, char **av)
 {
 	info->number_of_philosophers = ft_atoi(av[1]);
 	info->time_to_die = ft_atoi(av[2]);
@@ -38,6 +38,19 @@ void	init(t_info *info, char **av)
 	info->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
 		info->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
+	else
+		info->number_of_times_each_philosopher_must_eat = 0;
+}
+
+void	make_thread(t_info *info)
+{
+	t_philo	*philo;
+	int		i;
+
+	philo = malloc(sizeof(philo) * info->number_of_philosophers);
+	i = -1;
+	while (++i < info->number_of_philosophers)
+		philo[i].num = i + 1;
 }
 
 int	main(int ac, char **av)
@@ -46,6 +59,10 @@ int	main(int ac, char **av)
 
 	if (ac == 5 || ac == 6)
 	{
-		init(&info, av);
+		init_info(&info, av);
+		make_thread(&info);
 	}
+	else
+		printf("Invalid arguments\n");
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:41:18 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/03/25 14:58:01 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/05 10:50:50 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	rra(t_stack *stack)
 	t_list	*tmp_node1;
 	t_list	*tmp_node2;
 
+	if (stack->cnt <= 1)
+		return ;
 	tmp_node1 = stack->bottom;
 	stack->bottom = stack->bottom->prev;
 	stack->bottom->next = NULL;
@@ -72,6 +74,8 @@ void	rrb(t_stack *stack)
 	t_list	*tmp_node1;
 	t_list	*tmp_node2;
 
+	if (stack->cnt <= 1)
+		return ;
 	tmp_node1 = stack->bottom;
 	stack->bottom = stack->bottom->prev;
 	stack->bottom->next = NULL;

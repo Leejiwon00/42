@@ -6,7 +6,7 @@
 #    By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/10 12:58:09 by jiwonle2          #+#    #+#              #
-#    Updated: 2023/07/22 17:48:42 by jiwonle2         ###   ########.fr        #
+#    Updated: 2023/08/05 15:57:35 by jiwonle2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = pipex
 
 SRCS = srcs/main.c srcs/path.c srcs/cmd.c
-SRCS_B = bonus/main_bonus.c bonus/path_bonus.c bonus/cmd_bonus.c
+SRCS_B = bonus/main_bonus.c bonus/path_bonus.c bonus/cmd_bonus.c bonus/utils_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
@@ -29,22 +29,22 @@ endif
 all : $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS_FIN)
-	make -sC libft
-	$(CC) $(CFLAGS) -Llibft -lft -o $@ $^
+	@make -sC libft
+	@$(CC) $(CFLAGS) -Llibft -lft -o $@ $^
 
 bonus :
-	make BFLAGS=1
+	@make BFLAGS=1
 
 clean :
-	rm -rf $(OBJS) $(OBJS_B)
-	make -sC libft clean
+	@rm -rf $(OBJS) $(OBJS_B)
+	@make -sC libft clean
 
 fclean : clean
-	rm -rf $(NAME)
-	make -sC libft fclean
+	@rm -rf $(NAME)
+	@make -sC libft fclean
 
 re :
 	make fclean

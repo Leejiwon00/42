@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 20:36:56 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/26 18:54:38 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:08:06 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	free_arr(char **arr);
 void	init_cmd(t_info *info, int ac, char **av);
 void	make_pipe(t_info *info);
 void	close_fds(t_info *info);
+
 #endif

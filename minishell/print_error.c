@@ -1,4 +1,16 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:47:31 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 int	null_input_exit(void)
 {
@@ -15,5 +27,13 @@ int	print_error(t_token *token, char *msg)
 		ft_putendl_fd(token->value, 2);
 	else
 		ft_putendl_fd("", 2);
+	return (1);
+}
+
+int	openfile_error(char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putendl_fd(": No such file or directory", 2);
 	return (1);
 }

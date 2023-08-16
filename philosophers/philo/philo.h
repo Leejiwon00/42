@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:32:04 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/31 16:41:40 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:10:23 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 
 typedef struct s_info
 {
-	int			number_of_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			number_of_times_each_philosopher_must_eat;
+	int				number_of_philosophers;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_of_times_each_philosopher_must_eat;
+	pthread_mutex_t	fork;
 }	t_info;
 
 typedef struct s_philo
@@ -34,7 +35,10 @@ typedef struct s_philo
 	pthread_t	thread;
 }	t_philo;
 
-void	init(t_info *info, char **av);
+void	init_info(t_info *info, char **av);
+void	make_thread(t_info *info);
+
+/* utils */
 int		ft_atoi(const char *str);
 
 #endif
