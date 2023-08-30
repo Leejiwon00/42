@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:32:04 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/25 19:12:02 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:59:58 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,22 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
-	pthread_mutex_t	fork;
+	int				*fork;
+	pthread_mutex_t	print;
 }	t_info;
 
 typedef struct s_philo
 {
 	int			num;
+	int			last_eat;
 	pthread_t	thread;
 }	t_philo;
 
 void	init_info(t_info *info, char **av);
-void	make_thread(t_info *info, t_philo **philo);
-void	*routine(void *arg);
+void	init_thread(t_info info, t_philo **philo);
+void	make_thread(t_info info, t_philo **philo);
+//void	*routine(void *arg);
+int		get_time(void);
 
 /* utils */
 int		ft_atoi(const char *str);
