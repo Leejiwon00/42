@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:31:52 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/30 17:13:10 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:20:55 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,46 @@
 // 	return arg;
 // }
 
-void	init_info(t_info *info, char **av)
+int	init_info(t_info *info, char **av)
 {
 	int	i;
 
 	i = -1;
-	info->number_of_philosophers = ft_atoi(av[1]);
+	info->num_philo = ft_atoi(av[1]);
 	info->time_to_die = ft_atoi(av[2]);
 	info->time_to_eat = ft_atoi(av[3]);
 	info->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
-		info->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
+		info->must_eat = ft_atoi(av[5]);
 	else
-		info->number_of_times_each_philosopher_must_eat = 0;
-	info->fork = malloc(sizeof(int) * info->number_of_philosophers);
-	while (++i < info->number_of_philosophers)
+		info->must_eat = 0;
+	info->fork = malloc(sizeof(int) * info->num_philo);
+	while (++i < info->num_philo)
 		info->fork[i] = 0;
+	if (info->num_philo <= 0 || info->time_to_die < 0 || info->time_to_eat < 0
+		|| info->time_to_die < 0)
+		return (1);
+	return (0);
 }
 
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	int		current_time = get_time();
+	t_info	*info;
+	int		current_time;
 
-	printf("test:%d\n", current_time);
 	philo = (t_philo *)arg;
+	info = philo->info;
+	current_time = get_time();
+	if (philo->num % 2)
+		usleep(1000);
+	while (1)
+	{
+		info->fork[philo->num] = 1;
+		printf("%d %d %s\n", philo->last_eat - current_time, philo->num, FORK);
+	}
+	// printf("test:%d\n", current_time);
+	// printf(",, %d\n", info.number_of_philosophers);
 	//printf("%d %d %s\n", philo->last_eat - current_time, philo->num, "has taken a fork");
 	return NULL;
 }
@@ -63,12 +78,13 @@ void	init_thread(t_info info, t_philo **philo)
 {
 	int		i;
 
-	*philo = malloc(sizeof(t_philo) * info.number_of_philosophers);
+	*philo = malloc(sizeof(t_philo) * info.num_philo);
 	i = -1;
-	while (++i < info.number_of_philosophers)
+	while (++i < info.num_philo)
 	{
 		(*philo)[i].num = i + 1;
 		(*philo)[i].last_eat = get_time();
+		(*philo)[i].info = &info;
 	}
 }
 
@@ -77,8 +93,8 @@ void	make_thread(t_info info, t_philo **philo)
 	int	i;
 
 	i = -1;
-	while (++i < info.number_of_philosophers)
-		pthread_create(&((*philo)[i].thread), NULL, routine, &(*philo)[i]);
+	while (++i < info.num_philo)
+		pthread_create(&(*philo)[i].thread, NULL, routine, &(*philo)[i]);
 		// pthread_create(&((*philo)[i].thread), NULL, routine, &((*philo)[i]));
 }
 

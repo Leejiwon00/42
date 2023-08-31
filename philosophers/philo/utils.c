@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:49:14 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/30 17:02:43 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:43:57 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	ft_atoi(const char *str)
 
 int	get_time(void)
 {	
-	struct timeval	mytime;
+	struct timeval	time;
 
-	gettimeofday(&mytime, NULL);
-	return (mytime.tv_usec / 1000);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
