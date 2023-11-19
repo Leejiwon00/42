@@ -6,7 +6,7 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:13:41 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/07/23 17:03:00 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:42:26 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	main(int ac, char **av, char **envp)
 			print_error(av[4], ": No such file or directory\n");
 		info.infile_fd = open(av[1], O_RDONLY);
 		if (info.infile_fd < 0)
-			print_error(av[1], ": No such file or directory\n");
+		{
+			perror(av[1]);
+			exit(1);
+		}
 		info.cmd1 = av[2];
 		info.cmd2 = av[3];
 		info.envp = envp;
